@@ -31,14 +31,21 @@ public class AiServiceImpl implements AiService {
                 List.of(new ChatRequestDTO.Message("user", userPrompt))
         );
         log.info("Constructed ChatRequestDTO: " + request);
-        ChatResponseDTO response = webClient.post()
-                .uri(apiUrl)
-                .header("Authorization", "Bearer " + apiKey)
-                .header("Content-Type", "application/json")
-                .bodyValue(request)
-                .retrieve()
-                .bodyToMono(ChatResponseDTO.class)
-                .block();
+        ChatResponseDTO response;
+        try{
+            response = webClient.post()
+                    .uri(apiUrl)
+                    .header("Authorization", "Bearer " + apiKey)
+                    .header("Content-Type", "application/json")
+                    .bodyValue(request)
+                    .retrieve()
+                    .bodyToMono(ChatResponseDTO.class)
+                    .block();
+        }
+        catch (Exception e){
+            log.info("Exception occurred while calling Perplexity API: " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
         log.info("Service ends with ChatResponseDTO: " + response);
         return response;
     }
