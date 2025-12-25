@@ -19,12 +19,15 @@ public class AiServiceImpl implements AiService {
     @Value("${perplexity.api.url}")
     private String apiUrl;
 
+    @Value("${perplexity.ai.model}")
+    private String modelName;
+
     private final WebClient webClient = WebClient.create();
 
     public ChatResponseDTO askPerplexity(String userPrompt) {
         log.info("Starting service method to ask Perplexity API with prompt: " + userPrompt);
         ChatRequestDTO request = new ChatRequestDTO(
-                "sonar", // Perplexity model name
+                modelName, // Perplexity model name
                 List.of(new ChatRequestDTO.Message("user", userPrompt))
         );
         log.info("Constructed ChatRequestDTO: " + request);
