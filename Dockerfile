@@ -1,10 +1,13 @@
-# Use a valid JDK 17 base image
-FROM eclipse-temurin:17-jdk as build
+# dockerfile
+FROM maven:3.9.7-eclipse-temurin-17 AS build
 
 WORKDIR /app
-COPY . .
+# copy only what is needed to leverage layer cache
+COPY pom.xml .
+COPY src ./src
+COPY public ./public
 
-RUN ./mvnw -q -e -DskipTests package
+RUN mvn -q -DskipTests package
 
 FROM eclipse-temurin:17-jdk
 
