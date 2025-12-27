@@ -1,13 +1,11 @@
-# dockerfile
-FROM maven:3.9.7-eclipse-temurin-17 AS build
+FROM eclipse-temurin:17-jdk as build
 
 WORKDIR /app
-# copy only what is needed to leverage layer cache
-COPY pom.xml .
-COPY src ./src
-COPY public ./public
+COPY . .
 
-RUN mvn -q -DskipTests package
+RUN apt-get update && apt-get install -y maven
+RUN mvn -q -e -DskipTests package
+
 
 FROM eclipse-temurin:17-jdk
 
