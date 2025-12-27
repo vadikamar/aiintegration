@@ -1,12 +1,16 @@
 package com.service.aiintegration.entity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "aiintegration")
 @SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "aiintegration")
 public class Memory {
     @Id
     private String id;
