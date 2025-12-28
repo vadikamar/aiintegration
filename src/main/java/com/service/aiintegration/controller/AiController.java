@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://aiintegration-ui.vercel.app")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/ai")
